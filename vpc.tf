@@ -1,28 +1,10 @@
-terraform {
-  required_providers {
-    aws = {
-      source = "hashicorp/aws"
-      version = "5.91.0"
-    }
+resource "aws_vpc" "lifebit_vpc" {
+  cidr_block 		= 	"172.16.0.0/16"
+  enable_dns_hostnames	= 	true
+  enable_dns_support	=	true
+
+  tags = {
+    Name = "lifebit-vpc"
   }
 }
-provider "aws" {
-  region = "us-east-1"
-}
 
-# VPC
-resource "aws_vpc" "my_vpc" {
-    cidr_block = var.vpc_cidr
-    instance_tenancy = "default"
-
-    tags = {
-      "Name" = "my_vpc"
-    }
-}
-
-
-variable "vpc_cidr" {
-  description = "VPC CIDR Range"
-  type = string
-  default =  "10.0.0.0/16"
-}
